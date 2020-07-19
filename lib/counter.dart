@@ -1,18 +1,23 @@
 import 'package:mobx/mobx.dart';
+part 'counter.g.dart';
 
-class Counter{
+class Counter = _Counter with _$Counter;
 
-  Counter(){
-    increment = Action(_increment);
-  }
+abstract class _Counter with Store{
 
-  Observable _count = Observable(0);
+  @observable
+  int count = 0;
 
-  int get count => _count.value;
-
-  Action increment;
-
-  void _increment(){
-    _count.value++;
+  @action
+  void increment(){
+    count++;
   }
 }
+
+/*
+::O Comando abaixo vai gerar o arquivo "counter.g.dart"
+flutter packages pub run build_runner build
+
+::O Comando abaixo vai Monitorar o arquivo "counter.dart" para gerar (quando houver modificações) o arquivo "counter.g.dart"
+flutter packages pub run build_runner watch
+*/
